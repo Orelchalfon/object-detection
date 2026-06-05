@@ -141,12 +141,33 @@ const App = () =>
                             ref={canvasRef}
 
                         />
-                        <button onClick={() =>
-                        {
-                            //change facing mode of camera
-                            setFacingMode(facingMode === "user" ? "environment" : "user");
-
-                        }} style={{ position: 'relative', top: '-30%', rotate: '90deg', left: '19%', zIndex: 20, padding: '.5rem' }}>🔃</button>
+                        <button
+                            type="button"
+                            className="flip-camera-btn"
+                            aria-label="Flip camera"
+                            title="Flip camera"
+                            onClick={() =>
+                            {
+                                // toggle between front ("user") and back ("environment") camera
+                                setFacingMode(facingMode === "user" ? "environment" : "user");
+                            }}
+                        >
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5l2-3h2l2 3h5a2 2 0 0 1 2 2v3.34" />
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36" />
+                                <polyline points="23 4 23 10 17 10" />
+                            </svg>
+                        </button>
 
                     </motion.div>
                 }

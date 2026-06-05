@@ -44,6 +44,35 @@
     cursor: pointer;
   }
 }
+.flip-camera-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.flip-camera-btn:hover {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.flip-camera-btn:active {
+  transform: rotate(180deg);
+}
+.flip-camera-btn:focus-visible {
+  outline: 2px solid #61dafb;
+  outline-offset: 2px;
+}
 .webcam {
   /*   
   position: "absolute",
