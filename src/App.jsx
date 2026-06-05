@@ -1,5 +1,3 @@
-import * as cocossd from "@tensorflow-models/coco-ssd";
-import "@tensorflow/tfjs";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useState } from "react";
 
@@ -16,6 +14,12 @@ const App = () =>
     // Main function to load the model
     const runCoco = async () =>
     {
+        // Lazy-load TensorFlow.js + COCO-SSD only when the camera is granted, so the
+        // ~2MB ML payload stays out of the initial page bundle (huge first-paint win).
+        const [cocossd] = await Promise.all([
+            import("@tensorflow-models/coco-ssd"),
+            import("@tensorflow/tfjs"), // imported for its side effect: registers the backend
+        ]);
         const net = await cocossd.load(); // Load the COCO-SSD model
         console.log("Model loaded");
         detectionIntervalRef.current = net; // Store the loaded model in the ref
@@ -117,7 +121,7 @@ const App = () =>
     };
 
     return <div className="App">
-        <header className="App-header" >
+        <main className="App-header" >
             <AnimatePresence mode="wait">
                 {isDetecting &&
                     <motion.div hidden={{
@@ -187,7 +191,7 @@ const App = () =>
                     </>
                 )}
             </div>
-        </header>
+        </main>
     </div>
 };
 
