@@ -106,7 +106,8 @@ const App = () =>
         try {
             // Only used to trigger the browser permission prompt. react-webcam owns the
             // live stream via videoConstraints, so we release these tracks immediately to
-            // avoid holding the camera with two competing streams.
+            // avoid holding the ca 
+            // mera with two competing streams.
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { facingMode },
             });
