@@ -24,7 +24,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-.App-header div {
+.controls {
   position: absolute;
   bottom: 10%;
   left: 50%;
@@ -34,6 +34,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  z-index: 20;
   button {
     all: unset;
 

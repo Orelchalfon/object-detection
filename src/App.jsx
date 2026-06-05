@@ -104,14 +104,13 @@ const App = () =>
     const requestCameraPermission = async () =>
     {
         try {
+            // Only used to trigger the browser permission prompt. react-webcam owns the
+            // live stream via videoConstraints, so we release these tracks immediately to
+            // avoid holding the camera with two competing streams.
             const stream = await navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: facingMode, // Front camera
-                },
+                video: { facingMode },
             });
-            if (webcamRef.current) {
-                webcamRef.current.srcObject = stream;
-            }
+            stream.getTracks().forEach((track) => track.stop());
             setHasPermission(true); // Update permission state
             runCoco(); // Load the model after permission is granted
         } catch (err) {
@@ -122,7 +121,7 @@ const App = () =>
 
     return <div className="App">
         <main className="App-header" >
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="sync">
                 {isDetecting &&
                     <motion.div hidden={{
                         x: -1000,
@@ -139,7 +138,7 @@ const App = () =>
                             ref={webcamRef}
                             muted={true}
                             className="webcam"
-
+                            videoConstraints={{ facingMode }}
                         />
                         <canvas
                             ref={canvasRef}
@@ -176,7 +175,7 @@ const App = () =>
                     </motion.div>
                 }
             </AnimatePresence>
-            <div>
+            <div className="controls">
                 {!hasPermission && (
                     <button onClick={requestCameraPermission}>Allow Camera</button>
                 )}
